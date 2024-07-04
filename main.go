@@ -13,7 +13,7 @@ func Greet(w http.ResponseWriter, r *http.Request) {
 func main() {
 
 	http.HandleFunc("/", Greet)
-	http.ListenAndServe("80", nil)
+	http.ListenAndServe("8080", nil)
 }
 
 // func greet(w http.ResponseWriter, r *http.Request) {
