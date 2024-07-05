@@ -3,19 +3,18 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
+	//"time"
 )
 
-func Greet(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World! %s", time.Now())
+func greet(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome to my first web server")
+	//fmt.Fprintf(w, "Hello World! %s", time.Now())
 }
 
 func main() {
-
-	http.HandleFunc("/", Greet)
-	http.ListenAndServe("8080", nil)
+	fileServer := http.FileServer(http.Dir("static"))
+	handler := http.StripPrefix("/static/", fileServer)
+	http.HandleFunc("/", greet)
+	http.Handle("/static/", handler)
+	http.ListenAndServe(":8080", nil)
 }
-
-// func greet(w http.ResponseWriter, r *http.Request) {
-//     fmt.Fprintf(w, "Hello World! %s", time.Now())
-// }
