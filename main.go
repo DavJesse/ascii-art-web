@@ -12,6 +12,9 @@ func greet(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fileServer := http.FileServer(http.Dir("static"))
+	handler := http.StripPrefix("/static/", fileServer)
 	http.HandleFunc("/", greet)
+	http.Handle("/static/", handler)
 	http.ListenAndServe(":8080", nil)
 }
