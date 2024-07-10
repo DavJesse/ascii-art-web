@@ -1,56 +1,35 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"web/Web"
 )
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Welcome to my lemonade stand")
-}
-
-func menuHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Below is our menu:\n")
-	fmt.Fprintf(w, "Jug of lemonade: $50\n")
-	fmt.Fprintf(w, "Glass of lemonade: $10\n")
-	fmt.Fprintf(w, "Freshly-baked cup cakes: $5\n")
-}
-
-func aboutHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "About Us\n")
-	fmt.Fprintf(w, "The Lemonade Inc was started in 2008 by David Odhiambo out of his sheer passion for lemonade. Over the years, the Lemonade Inc has contributed massively to the bevarage industry. It revolutionized how we approach and consume lemonade, introducing the world to the twirling straw.\n")
-}
-
-func contactHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Contacts\n")
-	fmt.Fprintf(w, "Contact us at:\n")
-	fmt.Fprintf(w, "Email: enquiries@lemonade.com\n")
-	fmt.Fprintf(w, "Call: 0712 345 689\n")
-}
-
-func orderHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/order.html")
-}
-
-func submitOrderHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		name := r.FormValue("name")
-		quantity := r.FormValue("quantity")
-		fmt.Fprintf(w, "Thank you %s! Your order for %s lemanades has been recieved.\n", name, quantity)
-	} else {
-		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-	}
-}
-
 func main() {
-	fileServer := http.FileServer(http.Dir("static"))
-	handler := http.StripPrefix("/static/", fileServer)
-	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/menu", menuHandler)
-	http.HandleFunc("/order", orderHandler)
-	http.HandleFunc("/submit-order", submitOrderHandler)
-	http.HandleFunc("/contacts", contactHandler)
-	http.HandleFunc("/about", aboutHandler)
-	http.Handle("/static/", handler)
-	http.ListenAndServe(":8080", nil)
+	// // Saves the input from the user
+	// inputs := os.Args[1:]
+
+	// // Exits the program if the arguments passed are greater than 5
+	// if len(inputs) == 0 || len(inputs) > 5 {
+	// 	Lib.PrintError()
+	// }
+
+	// // Check what user input contains and returns required variables
+	// color1, color2, reset, mainString, subString, fileName, outputFile := Lib.CheckInput(inputs)
+
+	http.HandleFunc("/", Web.FormHandler)
+	http.HandleFunc("/submit-ascii-art", Web.SubmitFormHandler)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	log.Fatal(http.ListenAndServe(":8000", nil))
+
+	// // Call the AsciiArt function to handle input
+	// output := Lib.AsciiArt(color1, color2, reset, mainString, subString, fileName)
+
+	// //Write ascii art to outputFile
+	// if len(outputFile) > 0 {
+	// 	os.WriteFile(outputFile, []byte(output), 0666)
+	// } else {
+	// 	fmt.Print(output)
+	// }
 }
