@@ -10,7 +10,11 @@
     <h2>Create Your Own Ascii Art</h2>
     <form action="\submit-ascii-art" method="POST">
         <label for="style">Banner Style:</label> 
-        <input type="text" name="style" id="style" placeholder="select banner style"><br><br>
+        <select id="style" name="style"> 
+            <option value="standard">standard</option> 
+            <option value="shadow">shadow</option>
+            <option value="thinkertoy">thinkertoy</option>
+        </select><br><br>
         <label for="text">Input Text:</label>
         <input type="text" name="inputStr" id="text" placeholder="enter input text"><br><br>
         <input type="submit" value="Print">
