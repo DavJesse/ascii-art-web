@@ -2,6 +2,6 @@ package Web
 
 import "net/http"
 
-func handleForm(w http.ResponseWriter, r *http.Request) {
-
+func FormHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "static/submitForm.html")
 }
