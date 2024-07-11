@@ -1,6 +1,7 @@
 package Web
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 	"text/template"
@@ -17,6 +18,8 @@ func SubmitFormHandler(w http.ResponseWriter, r *http.Request) {
 
 		bnStyle = r.FormValue("style")
 		inputStr = r.FormValue("inputStr")
+
+		//fmt.Printf("%q\n", inputStr)
 
 		output := Lib.AsciiArt("", "", "", inputStr, inputStr, bnStyle+".txt")
 		output = strings.ReplaceAll(output, "\n", "<br>")
