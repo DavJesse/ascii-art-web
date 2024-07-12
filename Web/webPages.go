@@ -1,9 +1,7 @@
 package Web
 
 import (
-	"fmt"
 	"net/http"
-	"strings"
 	"text/template"
 	"web/Lib"
 )
@@ -21,8 +19,8 @@ func SubmitFormHandler(w http.ResponseWriter, r *http.Request) {
 
 		//fmt.Printf("%q\n", inputStr)
 
-		output := Lib.AsciiArt("", "", "", inputStr, inputStr, bnStyle+".txt")
-		output = strings.ReplaceAll(output, "\n", "<br>")
+		output := Lib.AsciiArt(inputStr, bnStyle+".txt")
+		//output = strings.ReplaceAll(output, "\n", "<br>")
 
 		tmpl := template.Must(template.ParseFiles("static/printer.html"))
 		tmpl.Execute(w, struct{ AsciiArt string }{AsciiArt: output})
