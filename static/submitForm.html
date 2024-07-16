@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SubmitAsciiArt</title>
 </head>
-<body>
-    <h1>Ascii Art Web</h1>
+<body>    
+        <h1>
+                <span style="color: blue;">
+    
+                    Ascii Art Web              
+                </span>
+            </strong>
+            <strong>
+        </h1>
+            <style>
+                .highlight {
+                    background-color: rgb(0, 217, 255);
+                }
+                </style>
     <h2>Create Your Own Ascii Art</h2>
-    <form action="\submit-ascii-art" method="POST">
+    <form action="\" method="POST">
         <label for="style">Banner Style:</label> 
         <select id="style" name="style"> 
             <option value="standard">standard</option> 
@@ -19,6 +31,10 @@
         <textarea id="inputStr" name="inputStr" rows="6" cols="50" placeholder="enter text" required></textarea><br><br>
         <input type="submit" value="Print">
     </form>
+    <section>
+        <h1>Your Ascii Art</h1>
+    <p><pre>{{ .AsciiArt }}</pre></p>
+    </section>
     
 </body>
 </html>
